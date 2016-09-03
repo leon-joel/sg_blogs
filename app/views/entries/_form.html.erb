@@ -1,4 +1,5 @@
-<%= form_for(@entry, url: blog_entries_path(@entry.blog_id) ) do |f| %>
+<%= form_for @entry,
+             url: @entry.persisted? ? blog_entry_path(@entry.blog_id, @entry.id) : blog_entries_path(@entry.blog_id) do |f| %>
   <% if @entry.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>

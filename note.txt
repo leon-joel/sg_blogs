@@ -59,3 +59,5 @@ blog#show で entry も表示
 entry#show で comment も表示
 
 comment#approve実装
+
+その他

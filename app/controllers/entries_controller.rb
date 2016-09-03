@@ -4,9 +4,9 @@ class EntriesController < ApplicationController
   # GET /blogs/:blog_id/entries/:id
   def show
     @entry = Entry.includes(:comments).find(params[:id])
-    p @entry
+    # p @entry
     if @entry.blog_id.to_s != params[:blog_id]
-      p params[:blog_id]
+      # p params[:blog_id]
       redirect_to (request.referer || blog_path(params[:blog_id]))
     end
   end
@@ -26,23 +26,22 @@ class EntriesController < ApplicationController
     @entry = Entry.new(entry_params)
 
     if @entry.save
-      redirect_to blog_path(@entry.blog_id), notice: 'Entry was successfully created.'
+      redirect_to blog_path(@entry.blog_id, @entry.id), notice: 'Entry was successfully created.'
     else
       render :new
     end
   end
 
-  # PATCH/PUT /entries/1
-  # PATCH/PUT /entries/1.json
+  # PATCH /blogs/:blog_id/entries/:id
   def update
-    respond_to do |format|
-      if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: 'Entry was successfully updated.' }
-        format.json { render :show, status: :ok, location: @entry }
-      else
-        format.html { render :edit }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
-      end
+    if @entry.blog_id.to_s != params[:blog_id]
+      return redirect_to (request.referer || blog_path(params[:blog_id]))
+    end
+
+    if @entry.update(entry_params)
+      redirect_to blog_entry_path(@entry.blog_id, @entry.id), notice: 'Entry was successfully updated.'
+    else
+      render :edit
     end
   end
 
