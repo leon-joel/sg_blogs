@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     @entry = Entry.find(params[:entry_id])
 
     if @entry.blog_id.to_s != params[:blog_id]
-      return redirect_to (request.referer || blog_path(params[:blog_id]))
+      return redirect_to (request.referer || blog_path(params[:blog_id])), notice: '不整合'
     end
 
     msg = @comment.save ? 'Comment was successfully created.' : 'Comment was failed to create.'
@@ -21,8 +21,8 @@ class CommentsController < ApplicationController
       return redirect_to (request.referer || blog_path(params[:blog_id])), notice: "不整合"
     end
 
-    @comment.destroy
-    redirect_to blog_entry_path(@entry.blog_id, @entry.id), notice: 'Comment was successfully destroyed.'
+    msg = @comment.destroy ? 'Comment was successfully destroyed.' : 'Failed to delete comment.'
+    redirect_to blog_entry_path(@entry.blog_id, @entry.id), notice: msg
   end
 
   # PATCH /blogs/:blog_id/entries/:entry_id/comments/:id

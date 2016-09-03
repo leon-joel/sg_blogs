@@ -8,7 +8,7 @@ class EntriesController < ApplicationController
     # p @entry
     if @entry.blog_id.to_s != params[:blog_id]
       # p params[:blog_id]
-      redirect_to (request.referer || blog_path(params[:blog_id]))
+      redirect_to (request.referer || blog_path(params[:blog_id])), notice: '不整合'
     end
   end
 
@@ -20,6 +20,9 @@ class EntriesController < ApplicationController
 
   # GET /blogs/:blog_id/entries/:id/edit
   def edit
+    if @entry.blog_id.to_s != params[:blog_id]
+      redirect_to (request.referer || blog_path(params[:blog_id])), notice: '不整合'
+    end
   end
 
   # POST /blogs/:blog_id/entries
@@ -36,7 +39,7 @@ class EntriesController < ApplicationController
   # PATCH /blogs/:blog_id/entries/:id
   def update
     if @entry.blog_id.to_s != params[:blog_id]
-      return redirect_to (request.referer || blog_path(params[:blog_id]))
+      return redirect_to (request.referer || blog_path(params[:blog_id])), notice: '不整合'
     end
 
     if @entry.update(entry_params)
@@ -49,11 +52,11 @@ class EntriesController < ApplicationController
   # DELETE /blogs/:blog_id/entries/:id
   def destroy
     if @entry.blog_id.to_s != params[:blog_id]
-      return redirect_to blog_path(params[:blog_id]), notice: "不整合"
+      return redirect_to (request.referer || blog_path(params[:blog_id])), notice: "不整合"
     end
 
-    @entry.destroy
-    redirect_to blog_path(params[:blog_id]), notice: 'Entry was successfully destroyed.'
+    msg = @entry.destroy ? 'Entry was successfully destroyed.' : 'Failed to delete entry.'
+    redirect_to blog_path(params[:blog_id]), notice: msg
   end
 
   private
