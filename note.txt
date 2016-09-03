@@ -16,7 +16,7 @@ comments
   id
   entry_id: references
   body:     string
-  approved: bool
+  approved: bool     ※これはあとで作る
 
 
 > rails g scaffold blog title:string
@@ -70,11 +70,24 @@ entry#destroy
 blog#destroy
 
 
-comment#approve実装
+approve関連
+  DBのcommnetテーブルに approved: bool, default: false を追加
+    rails g migration AddApprovedToCommentTable approved:boolean
+    rake db:migrate
+    
+  comment#approve実装
+  
+  entry#show のapproved表示 実装
+  
+  comment#create, update では approved をセット出来ないように ※何もしなければそうなっているはず
 
+
+
+最低限の入力チェック（空はNG、程度はやっておく）
 
 
 その他
+
 
 paramsの不整合チェックがもれなく出来ているかどうか
 不整合時のエラーメッセージ・redirect先が適切かどうか

@@ -32,7 +32,8 @@
         %td
           = comment.body
         %td
-          Approve
+          -# TODO: 未承認の場合のみリンク表示
+          = link_to 'Approve', approve_comment_path(@entry.blog_id, @entry.id, comment.id), method: :patch
         %td
           = link_to 'Destroy', blog_entry_comment_path(@entry.blog_id, @entry.id, comment.id), method: :delete,
                     data: { dismiss: "modal", confirm: '本当に削除してもよろしいですか？' }

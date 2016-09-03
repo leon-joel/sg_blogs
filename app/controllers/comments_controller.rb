@@ -27,7 +27,13 @@ class CommentsController < ApplicationController
 
   # PATCH /blogs/:blog_id/entries/:entry_id/comments/:id
   def approve
+    @entry = Entry.find(params[:entry_id])
+    if @comment.entry_id != @entry.id || @entry.blog_id.to_s != params[:blog_id]
+      return redirect_to (request.referer || blog_path(params[:blog_id])), notice: "不整合"
+    end
 
+    msg = @comment.update_attribute(:approved, true) ? 'コメントは承認されました ∑d=(´∀`*)ｸﾞｯ' : '承認エラー'
+    redirect_to blog_entry_path(@entry.blog_id, @entry.id), notice: msg
   end
 
   private
