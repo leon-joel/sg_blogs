@@ -1,0 +1,57 @@
+Scaffoldに対する変更
+
+■テーブル設計
+
+blogs
+  id
+  title: string
+
+entries
+  id
+  blog_id: references
+  title:   string
+  body:    string
+
+comments
+  id
+  entry_id: references
+  body:     string
+  approved: bool
+
+
+> rails g scaffold blog title:string
+> rails g scaffold entry blog:references  title:string body:string
+> rails g scaffold comment entry:references body:string
+
+
+routeのネスト
+
+
+※db準備
+　local接続はtrustに
+　db管理者アカウント生成し、database.ymlに設定
+rake db:create
+rake db:migrate
+rake db:seed
+
+※rake db:setupだけで行けると思ったが、migrate部分でエラーになった。個別実行ならOK。
+
+rails s して、ページが開くことを確認。
+
+
+gem追加
+
+modelの調整
+
+
+
+■route
+
+　blogs    index, show, new, edit, create, udpate, destroy
+　entries         show, new, edit, create, udpate, destroy
+　comments                         create,         destroy, approve
+
+
+blog#show で entry も表示
+
+entryクリックで
