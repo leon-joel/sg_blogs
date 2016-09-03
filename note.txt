@@ -85,6 +85,9 @@ approve関連
 
 
 
+blog, entryの表示順を created_at 順に
+
+
 最低限の入力チェック（空はNG、程度はやっておく）
 
 
