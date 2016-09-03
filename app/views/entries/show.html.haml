@@ -1,0 +1,43 @@
+%p#notice
+  = notice
+
+%p
+  %strong Blog:
+  = @entry.blog_id
+
+%p
+  %strong Title:
+  = @entry.title
+
+%p
+  %strong Body:
+  = @entry.body
+
+= link_to 'Edit', edit_blog_entry_path(@entry.blog_id, @entry.id)
+|
+= link_to 'Back', blog_path(@entry.blog_id)
+
+
+%p
+  %strong Listing Comments
+  %table
+    %thead
+    %tr
+      %th Body
+      %th
+      %th
+    %tbody
+    - @entry.comments.each do |comment|
+      %tr
+        %td
+          = entry.title
+        %td
+          Approve
+        %td
+          = link_to 'Destroy', blog_entry_comment_path(@entry.blog_id, @entry.id, comment.id)
+
+%p
+  %strong New Comment
+
+  %input
+  %button Save

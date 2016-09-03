@@ -1,9 +1,14 @@
 class EntriesController < ApplicationController
-  before_action :set_entry, only: [:show, :edit, :update, :destroy]
+  before_action :set_entry, only: [ :edit, :update, :destroy]
 
-  # GET /entries/1
-  # GET /entries/1.json
+  # GET /blogs/:blog_id/entries/:id
   def show
+    @entry = Entry.includes(:comments).find(params[:id])
+    p @entry
+    if @entry.blog_id.to_s != params[:blog_id]
+      p params[:blog_id]
+      redirect_to (request.referer || blog_path(params[:blog_id]))
+    end
   end
 
   # GET /blogs/:blog_id/entries/new
