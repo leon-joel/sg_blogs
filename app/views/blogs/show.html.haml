@@ -17,8 +17,10 @@
     %tbody
     - @blog.entries.each do |entry|
       %tr
-        %td entry.title
-        %td entry.body
+        %td
+          = entry.title
+        %td
+          = entry.body
         %td
           = link_to 'Show', blog_entry_path(@blog.id, entry.id)
         %td

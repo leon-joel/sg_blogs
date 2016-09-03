@@ -6,9 +6,10 @@ class EntriesController < ApplicationController
   def show
   end
 
-  # GET /entries/new
+  # GET /blogs/:blog_id/entries/new
   def new
-    @entry = Entry.new
+    @entry = Entry.new(params.permit(:blog_id))
+    p @entry
   end
 
   # GET /entries/1/edit
@@ -16,18 +17,13 @@ class EntriesController < ApplicationController
   end
 
   # POST /entries
-  # POST /entries.json
   def create
     @entry = Entry.new(entry_params)
 
-    respond_to do |format|
-      if @entry.save
-        format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
-        format.json { render :show, status: :created, location: @entry }
-      else
-        format.html { render :new }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
-      end
+    if @entry.save
+      redirect_to blog_path(@entry.blog_id), notice: 'Entry was successfully created.'
+    else
+      render :new
     end
   end
 
