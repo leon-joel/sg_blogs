@@ -18,11 +18,11 @@ class EntriesController < ApplicationController
     p @entry
   end
 
-  # GET /entries/1/edit
+  # GET /blogs/:blog_id/entries/:id/edit
   def edit
   end
 
-  # POST /entries
+  # POST /blogs/:blog_id/entries
   def create
     @entry = Entry.new(entry_params)
 
@@ -46,14 +46,14 @@ class EntriesController < ApplicationController
     end
   end
 
-  # DELETE /entries/1
-  # DELETE /entries/1.json
+  # DELETE /blogs/:blog_id/entries/:id
   def destroy
-    @entry.destroy
-    respond_to do |format|
-      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
-      format.json { head :no_content }
+    if @entry.blog_id.to_s != params[:blog_id]
+      return redirect_to blog_path(params[:blog_id]), notice: "不整合"
     end
+
+    @entry.destroy
+    redirect_to blog_path(params[:blog_id]), notice: 'Entry was successfully destroyed.'
   end
 
   private

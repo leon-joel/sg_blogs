@@ -27,7 +27,8 @@
         %td
           = link_to 'Edit', edit_blog_entry_path(@blog.id, entry.id)
         %td
-          = link_to 'Destroy', blog_entry_path(@blog.id, entry.id)
+          = link_to 'Destroy', blog_entry_path(@blog.id, entry.id), method: :delete,
+                    data: { dismiss: "modal", confirm: '本当に削除してもよろしいですか？' }
 
   = link_to 'New Entry', new_blog_entry_path(@blog)
 
