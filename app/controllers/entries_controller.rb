@@ -14,8 +14,8 @@ class EntriesController < ApplicationController
 
   # GET /blogs/:blog_id/entries/new
   def new
+    @blog = Blog.find(params[:blog_id])
     @entry = Entry.new(params.permit(:blog_id))
-    p @entry
   end
 
   # GET /blogs/:blog_id/entries/:id/edit
