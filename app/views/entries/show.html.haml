@@ -30,14 +30,14 @@
     - @entry.comments.each do |comment|
       %tr
         %td
-          = entry.title
+          = comment.body
         %td
           Approve
         %td
           = link_to 'Destroy', blog_entry_comment_path(@entry.blog_id, @entry.id, comment.id)
 
-%p
-  %strong New Comment
+= render 'comments/form'
 
-  %input
-  %button Save
+-#%strong New Comment
+-#%input
+-#%button Save

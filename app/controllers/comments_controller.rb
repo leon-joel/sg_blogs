@@ -1,20 +1,17 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: [:approve, :destroy]
 
-  # POST /comments
-  # POST /comments.json
+  # POST /blogs/:blog_id/entries/:entry_id/comments
   def create
     @comment = Comment.new(comment_params)
+    @entry = Entry.find(params[:entry_id])
 
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if @entry.blog_id.to_s != params[:blog_id]
+      return redirect_to (request.referer || blog_path(params[:blog_id]))
     end
+
+    msg = @comment.save ? 'Comment was successfully created.' : 'Comment was failed to create.'
+    redirect_to blog_entry_path(@entry.blog_id, @entry.id), notice: msg
   end
 
   # DELETE /comments/1

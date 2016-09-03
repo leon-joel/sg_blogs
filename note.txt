@@ -58,6 +58,19 @@ blog#show で entry も表示
 
 entry#show で comment も表示
 
+entry#update
+
+comment#new
+
 comment#approve実装
 
+comment#destroy
+
+entry#destroy
+
+blog#destroy
+
+
 その他
+
+paramsの不整合チェックがもれなく出来ているかどうか

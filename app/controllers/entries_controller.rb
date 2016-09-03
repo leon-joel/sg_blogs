@@ -4,6 +4,7 @@ class EntriesController < ApplicationController
   # GET /blogs/:blog_id/entries/:id
   def show
     @entry = Entry.includes(:comments).find(params[:id])
+    @comment = Comment.new(params.permit(:id))
     # p @entry
     if @entry.blog_id.to_s != params[:blog_id]
       # p params[:blog_id]
