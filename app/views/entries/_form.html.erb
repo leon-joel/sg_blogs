@@ -12,10 +12,8 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :blog_id %><br>
-    <%= f.text_field :blog_id %>
-  </div>
+  <%= f.hidden_field :blog_id, value: @entry.blog_id %>
+
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
