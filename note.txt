@@ -52,6 +52,10 @@ modelの調整
 　comments                         create,         destroy, approve
 
 
+■改造項目
+
 blog#show で entry も表示
 
-entryクリックで
+entry#show で comment も表示
+
+comment#approve実装

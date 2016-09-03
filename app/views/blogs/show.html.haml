@@ -1,0 +1,30 @@
+%p#notice
+
+%p
+  %strong Title:
+  = @blog.title
+
+= link_to 'Edit', edit_blog_path(@blog)
+= link_to 'Back', blogs_path
+
+%p
+  %strong Listing Entries
+  %table
+    %thead
+    %tr
+      %th Title
+      %th Body
+    %tbody
+    - @blog.entries.each do |entry|
+      %tr
+        %td entry.title
+        %td entry.body
+        %td
+          = link_to 'Show', blog_entry_path(@blog.id, entry.id)
+        %td
+          = link_to 'Edit', edit_blog_entry_path(@blog.id, entry.id)
+        %td
+          = link_to 'Destroy', blog_entry_path(@blog.id, entry.id)
+
+  = link_to 'New Entry', new_blog_entry_path(@blog)
+
