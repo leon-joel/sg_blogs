@@ -79,7 +79,9 @@ approve関連
   
   entry#show のapproved表示 実装
   
-  comment#create, update では approved をセット出来ないように ※何もしなければそうなっているはず
+  comment#create では approved をセット出来ないように ※何もしなければそうなっているはず
+  
+  commentの表示順を created_at 順に
 
 
 
