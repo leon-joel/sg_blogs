@@ -14,14 +14,15 @@ class CommentsController < ApplicationController
     redirect_to blog_entry_path(@entry.blog_id, @entry.id), notice: msg
   end
 
-  # DELETE /comments/1
-  # DELETE /comments/1.json
+  # DELETE /blogs/:blog_id/entries/:entry_id/comments/:id
   def destroy
-    @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
-      format.json { head :no_content }
+    @entry = Entry.find(params[:entry_id])
+    if @comment.entry_id != @entry.id || @entry.blog_id.to_s != params[:blog_id]
+      return redirect_to (request.referer || blog_path(params[:blog_id])), notice: "不整合"
     end
+
+    @comment.destroy
+    redirect_to blog_entry_path(@entry.blog_id, @entry.id), notice: 'Comment was successfully destroyed.'
   end
 
   # PATCH /blogs/:blog_id/entries/:entry_id/comments/:id

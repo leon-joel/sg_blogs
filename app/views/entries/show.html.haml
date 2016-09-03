@@ -34,7 +34,8 @@
         %td
           Approve
         %td
-          = link_to 'Destroy', blog_entry_comment_path(@entry.blog_id, @entry.id, comment.id)
+          = link_to 'Destroy', blog_entry_comment_path(@entry.blog_id, @entry.id, comment.id), method: :delete,
+                    data: { dismiss: "modal", confirm: '本当に削除してもよろしいですか？' }
 
 = render 'comments/form'
 

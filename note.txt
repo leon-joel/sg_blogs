@@ -60,15 +60,18 @@ entry#show で comment も表示
 
 entry#update
 
-comment#new
+comment#create
 
-comment#approve実装
 
 comment#destroy
 
 entry#destroy
 
 blog#destroy
+
+
+comment#approve実装
+
 
 
 その他
