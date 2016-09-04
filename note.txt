@@ -97,3 +97,6 @@ blog, entryの表示順を created_at ASC 順に
 
 paramsの不整合チェックがもれなく出来ているかどうか
 不整合時のエラーメッセージ・redirect先が適切かどうか
+
+※やってない(^^;)
+NotFound時のエラー処理

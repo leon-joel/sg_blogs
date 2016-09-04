@@ -9,6 +9,11 @@ class BlogsController < ApplicationController
   # GET /blogs/1
   def show
     @blog = Blog.includes(:entries).find(params[:id])
+    # ↓セキュリティリスク!
+    # @blog = Blog.where("id = #{params[:id]}").first
+    #                SELECT  "blogs".* FROM "blogs" WHERE (id =
+    # ユーザー入力⇒  null) UNION select id, body , null, null from comments where approved='false' --
+    #                )  ORDER BY "blogs"."id" ASC LIMIT 1
   end
 
   # GET /blogs/new

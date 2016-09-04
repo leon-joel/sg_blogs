@@ -14,6 +14,15 @@
       %tr
         %td
           = blog.title
+          -# ↓セキュリティリスク! 入力されたTitle内に<script>xxx</script>が含まれていたらそれが実行される！
+          -#   つまりHTMLエスケープしてくれなくなるということ。
+          -#= blog.title.html_safe
+          -# ↓これでも同じ結果 ※html_safeよりrawが推奨されているとか
+          -#= raw blog.title
+          -# ↓hamlならこれでも同じ結果。erbなら <%== blog.title %>。slimの場合は == blog.title
+          -#!= blog.title
+          -# ※参考: 決定版!!Haml小技まとめ！！ http://qiita.com/yukimura1227/items/a1cbf65ac9abd4d138e1
+
         %td
           = link_to 'Show', blog
         %td
