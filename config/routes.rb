@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :users
+
   resources :blogs, format: false do
     resources :entries, { format: false, except: [ :index ] } do
       resources :comments, { format: false, only: [ :create, :destroy ] }

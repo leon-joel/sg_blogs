@@ -22,14 +22,11 @@ Rails.application.configure do
       address: 'smtp.gmail.com',
       port: 587,
       domain: 'example.com',
-      user_name: 'メールアドレス',
-      password: 'パスワード',
+      user_name: Rails.application.secrets.smtp_user_name,  # 秘密情報はsecrets.ymlに定義 ※secrets.ymlは常に.gitignoreすること
+      password: Rails.application.secrets.smtp_password,    # 同上
       authentication: :plain,
       enable_starttls_auto: true
   }
-
-
-
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
