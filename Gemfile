@@ -52,6 +52,9 @@ group :development do
   # Error時の表示を分かりやすく
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  # 開発中・テスト中はメール送信に代えてファイルOPENする
+  gem 'letter_opener'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
