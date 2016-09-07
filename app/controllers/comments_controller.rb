@@ -4,14 +4,30 @@ class CommentsController < ApplicationController
   # POST /blogs/:blog_id/entries/:entry_id/comments
   def create
     @comment = Comment.new(comment_params)
-    @entry = Entry.find(params[:entry_id])
 
-    if @entry.blog_id.to_s != params[:blog_id]
+    # INNER JOIN
+    # @blog = Blog.joins(:entries)
+    #             .where(entries: { id: params[:entry_id] })
+    #             .select("blogs.*, entries.title AS entry_title, entries.body")
+    #             .first
+    # p @blog
+    # p @blog.attributes
+
+    # LEFT OUTER JOIN
+    @blog = Blog.includes(:entries).where(entries: { id: params[:entry_id] }).first
+    # p @blog
+
+    if @blog.id.to_s != params[:blog_id]
       return redirect_to (request.referer || blog_path(params[:blog_id])), notice: '不整合'
     end
 
     msg = @comment.save ? 'Comment was successfully created.' : 'Comment was failed to create.'
-    redirect_to blog_entry_path(@entry.blog_id, @entry.id), notice: msg
+
+    # 保存後にUserMailerを使用してwelcomeメールを送信
+    CommentMailer.new_comment_email(@comment, @blog).deliver_later
+    # ※save前に実行すると、「Unable to create a Global ID for Comment without a model id.」というエラーが。
+
+    redirect_to blog_entry_path(@blog.id, @blog.entries[0].id), notice: msg
   end
 
   # DELETE /blogs/:blog_id/entries/:entry_id/comments/:id

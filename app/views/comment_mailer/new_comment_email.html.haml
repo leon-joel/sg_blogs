@@ -1,0 +1,14 @@
+%h2 新しいコメントが登録されました。
+
+%p 承認または削除してください。
+
+%p
+  Blog: #{@blog.title}
+  %br
+  Entry: #{@blog.entries[0].title}
+  %br
+  Comment: #{@comment.body}
+
+%p
+  URL:
+  = link_to "#{@url}", @url, method: :patch
