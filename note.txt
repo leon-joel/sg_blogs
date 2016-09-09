@@ -19,9 +19,9 @@ comments
   approved: bool     ※これはあとで作る
 
 
-> rails g scaffold blog title:string
-> rails g scaffold entry blog:references  title:string body:string
-> rails g scaffold comment entry:references body:string
+> rails g scaffold Blog title:string
+> rails g scaffold Entry blog:references  title:string body:string
+> rails g scaffold Comment entry:references body:string
 
 
 routeのネスト
