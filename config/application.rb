@@ -50,11 +50,13 @@ module SgBlogs
       g.test_framework :rspec,
                        fixture: true,
                        fixture_replacement: :factory_girl,
+                       # model_specs: false,
                        view_specs: false,
                        controller_specs: false,
                        routing_specs: false,
                        helper_specs: false,
                        integration_tool: false
+      # ここ↑でfalseにしたspecは、単体の generate コマンドでも作れなくなってしまうので注意。
     end
   end
 end

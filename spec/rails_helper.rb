@@ -29,6 +29,7 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  # ↑Fixtureを使わないならこの設定をコメントアウトしてもOK [EDR p.1436]
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -54,4 +55,9 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+
+  # Factoryを簡単に呼び出せるよう、FactoryGirlの構文を include する [EDR p.1435]
+  config.include FactoryGirl::Syntax::Methods
+
 end
