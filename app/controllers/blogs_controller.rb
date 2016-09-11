@@ -33,6 +33,8 @@ class BlogsController < ApplicationController
       redirect_to @blog, notice: 'Blog was successfully created.'
     else
       render :new
+      # ・@blog.errors の内容が、newから呼び出される _form に表示される。
+      # ・path は /blogs のままとなる。
     end
   end
 
