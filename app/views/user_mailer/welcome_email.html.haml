@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{ :charset => "UTF-8" }
+
+  %body
+    %h1
+      = @user.name
+      様、example.comへようこそ。
+
+    %p
+      example.com へのサインアップが成功しました。
+      your username is:
+      = @user.login
+      | .
+    %p
+      このサイトにログインするには、
+      = link_to "入会手続きを始める", @url
+      をクリックしてください。
+
+    %p ご入会ありがとうございます。どうぞお楽しみくださいませ。

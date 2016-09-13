@@ -1,0 +1,21 @@
+= form_for @entry,                                                                                               |
+  url: @entry.persisted? ? blog_entry_path(@entry.blog_id, @entry.id) : blog_entries_path(@entry.blog_id) do |f| |
+  - if @entry.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@entry.errors.count, "error")
+        prohibited this entry from being saved:
+      %ul
+        - @entry.errors.full_messages.each do |message|
+          %li= message
+  = f.hidden_field :blog_id, value: @entry.blog_id
+  .field
+    = f.label :title
+    %br/
+    = f.text_field :title
+  .field
+    = f.label :body
+    %br/
+    = f.text_field :body
+  .actions
+    = f.submit
